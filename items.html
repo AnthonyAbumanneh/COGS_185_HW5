@@ -1,0 +1,52 @@
+{% extends "catalog/base.html" %}
+
+{% block content %}
+  <div class="d-flex align-items-center justify-content-between mb-3">
+    <div>
+      <h1 class="h3 mb-1">Items</h1>
+      <div class="text-secondary">Sorted by newest first.</div>
+    </div>
+    <a class="btn btn-primary" href="/add/">+ Add Item</a>
+  </div>
+
+  {% if items %}
+    <div class="card shadow-sm">
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <table class="table table-hover table-striped mb-0 align-middle">
+            <thead class="table-dark">
+              <tr>
+                <th>Name</th>
+                <th>Serial</th>
+                <th class="text-end">Qty</th>
+                <th>Expiry</th>
+                <th>Created</th>
+                <th>Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for item in items %}
+                <tr>
+                  <td class="fw-semibold">{{ item.name }}</td>
+                  <td><span class="badge text-bg-secondary">{{ item.serial_number }}</span></td>
+                  <td class="text-end">{{ item.quantity }}</td>
+                  <td>{{ item.expiry_date }}</td>
+                  <td>{{ item.created_at }}</td>
+                  <td class="text-secondary">{{ item.notes|default:"" }}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  {% else %}
+    <div class="card shadow-sm">
+      <div class="card-body text-center py-5">
+        <h2 class="h5 mb-2">No items yet</h2>
+        <p class="text-secondary mb-4">Add your first item to get started.</p>
+        <a class="btn btn-primary" href="/add/">Add Item</a>
+      </div>
+    </div>
+  {% endif %}
+{% endblock %}
